@@ -1,5 +1,9 @@
 <template>
+  <div>
+    <h1>Todos</h1>
     <div>
-        <h1>Todos</h1>
+      <button></button>
+      <input type="text" placeholder="New Todo" />
     </div>
+  </div>
 </template>
