@@ -1,37 +1,45 @@
 <template>
-  <div class="container mx-auto mt-4">
-    <h1 class="h1">Todos</h1>
-    <div class="text-field">
-      <form
-        v-on:submit.prevent
-        class="flex justify-between items-center h-full"
-      >
-        <input
-          v-model="inputText"
-          class="text-field__input"
-          type="text"
-          placeholder="New Todo"
-        />
-        <button @click="addTodo" class="text-field__action">+</button>
-      </form>
-    </div>
-    <div class="todos__list">
-      <div
-        class="todos__item shadow-md"
-        v-for="(todo, index) in todos"
-        :key="index"
-      >
-        <p class="text-3xl inline-block">
-          {{ todo.text }}
-        </p>
-        <p class="text-xl text-gray-500">{{ todo.created }}</p>
+  <div>
+    <Sidebar />
+    <div class="container mt-4">
+      <h1 class="h1">Todos</h1>
+      <div class="text-field">
+        <form
+          v-on:submit.prevent
+          class="flex justify-between items-center h-full"
+        >
+          <input
+            v-model="inputText"
+            class="text-field__input"
+            type="text"
+            placeholder="New Todo"
+          />
+          <button @click="addTodo" class="text-field__action">+</button>
+        </form>
+      </div>
+      <div class="todos__list">
+        <div
+          class="todos__item shadow-md"
+          v-for="(todo, index) in todos"
+          :key="index"
+        >
+          <p class="text-3xl inline-block">
+            {{ todo.text }}
+          </p>
+          <p class="text-xl text-gray-500">{{ todo.created }}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Sidebar from '@/components/Sidebar.vue';
+
 export default {
+  components: {
+    Sidebar,
+  },
   data() {
     return {
       inputText: '',
