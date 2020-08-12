@@ -1,17 +1,30 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto mt-4">
     <h1 class="h1">Todos</h1>
     <div class="text-field">
-      <form v-on:submit.prevent class="flex justify-between items-center h-full">
-        <input v-model="inputText" class="text-field__input" type="text" placeholder="New Todo" />
+      <form
+        v-on:submit.prevent
+        class="flex justify-between items-center h-full"
+      >
+        <input
+          v-model="inputText"
+          class="text-field__input"
+          type="text"
+          placeholder="New Todo"
+        />
         <button @click="addTodo" class="text-field__action">+</button>
       </form>
     </div>
-    <div class="todos">
-      <div class="todos__item shadow-md" v-for="(todo, index) in todos" :key="index">
-        <p class="text-2xl inline-block">
+    <div class="todos__list">
+      <div
+        class="todos__item shadow-md"
+        v-for="(todo, index) in todos"
+        :key="index"
+      >
+        <p class="text-3xl inline-block">
           {{ todo.text }}
         </p>
+        <p class="text-xl text-gray-500">{{ todo.created }}</p>
       </div>
     </div>
   </div>
@@ -22,13 +35,33 @@ export default {
   data() {
     return {
       inputText: '',
-      todos: [{ text: 'Buy milk' }, { text: 'Get food for boots' }, { text: 'Take out the trash' }],
+      todos: [
+        {
+          text: 'Buy milk',
+          description: '',
+          created: new Date().toDateString(),
+        },
+        {
+          text: 'Get food for boots',
+          description: '',
+          created: new Date().toDateString(),
+        },
+        {
+          text: 'Take out the trash',
+          description: '',
+          created: new Date().toDateString(),
+        },
+      ],
     };
+  },
+  mounted() {
+    console.log(new Date().toDateString());
   },
   methods: {
     addTodo() {
       this.todos.push({
         text: this.inputText,
+        created: new Date().toDateString(),
       });
       this.inputText = '';
     },
@@ -57,9 +90,11 @@ export default {
 }
 
 .todos {
-  display: flex;
-  flex-direction: column;
-  margin: 5rem 0;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem 0;
+  }
 
   &__item {
     background-color: #fefefe;

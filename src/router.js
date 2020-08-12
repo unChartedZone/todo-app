@@ -2,8 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // Views
-import Home from './views/Home.vue';
 import Todos from './views/Todos.vue';
+import Login from './views/Login.vue';
+import Signup from './views/Signup.vue';
+import Dev from './views/Dev.vue';
 
 Vue.use(Router);
 
@@ -13,13 +15,23 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home,
-    },
-    {
-      path: '/todos',
       name: 'Todos',
       component: Todos,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: Signup,
+    },
+    {
+      path: '/dev',
+      name: 'Dev',
+      component: Dev,
     },
   ],
 });
