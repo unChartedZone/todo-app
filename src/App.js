@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './scss/main.scss';
+import './tailwind.output.css';
+// import './assets/css/tailwind.css';
 
 // Components
 import Navbar from './components/Navbar';
@@ -14,6 +17,7 @@ function App() {
     <div className="app">
       <Router>
         <Navbar />
+        <h1 className="temp">Hello World</h1>
         <Switch>
           <Route exact path="/" component={Todos} />
 
