@@ -1,11 +1,94 @@
 import React from 'react';
 
-const Todos = () => {
-  return (
-    <div>
-      <h1 className="text-blue-500 text-2xl">Todos</h1>
-    </div>
-  );
-};
+class Todos extends React.Component {
+  state = {
+    temp: '',
+    todos: [
+      {
+        id: 1,
+        text: 'Buy Milk!',
+        description: '',
+        created: new Date().toDateString(),
+      },
+      {
+        id: 2,
+        text: 'Get food for Boots',
+        description: '',
+        created: new Date().toDateString(),
+      },
+      {
+        id: 3,
+        text: 'Take out the trash',
+        description: '',
+        created: new Date().toDateString(),
+      },
+    ],
+  };
+
+  addTodo = (event) => {
+    console.log('Event: ', event);
+    event.preventDefault();
+    let todos = [...this.state.todos];
+
+    let id = todos.length + 1;
+
+    todos.push({
+      id,
+      text: `Harcoded Todo! ${id}`,
+      description: '',
+      created: new Date().toDateString(),
+    });
+
+    this.setState({
+      todos,
+    });
+  };
+
+  handleChange = (event) => {
+    let temp = event.target.value;
+
+    this.setState({
+      temp,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <div className="container mt-4 mx-auto">
+          <h1 className="h1">Todos</h1>
+          <p className="body--1">Temp: {this.state.temp} </p>
+          <div className="text-field">
+            <form className="text-field__form">
+              <input
+                type="text"
+                placeholder="New Todo"
+                className="text-field__input"
+                onChange={this.handleChange}
+                value={this.state.temp}
+              />
+              <button onClick={this.addTodo} className="text-field__action">
+                +
+              </button>
+            </form>
+          </div>
+          <div className="todos__list">
+            {/* <div className="todos__item">
+              <p className="body--1">Buy Milk</p>
+              <p className="subtitle--1">{new Date().toDateString()}</p>
+            </div> */}
+            {this.state.todos.map((todo) => {
+              return (
+                <div className="todos__item" key={todo.id}>
+                  <p className="body--1">{todo.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Todos;

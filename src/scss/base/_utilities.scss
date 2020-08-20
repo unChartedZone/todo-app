@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+
+  @include respond(sm) {
+    max-width: 640px;
+  }
+
+  @include respond(md) {
+    max-width: 768px;
+  }
+
+  @include respond(lg) {
+    max-width: 1024px;
+  }
+
+  @include respond(xl) {
+    max-width: 1280;
+  }
+}
+
+.m {
+  &t {
+    &-1 {
+      margin-top: 0.5rem;
+    }
+    &-2 {
+      margin-top: 1rem;
+    }
+    &-3 {
+      margin-top: 1.5rem;
+    }
+    &-4 {
+      margin-top: 2rem;
+    }
+  }
+
+  &x {
+    &-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &y {
+    &-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

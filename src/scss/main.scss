@@ -1,24 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// Abstract
+@import './abstracts/variables';
+@import './abstracts/mixins';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: content-box;
-}
+// Base
+@import './base/base';
+@import './base/typography';
+@import './base/utilities';
 
-.temp {
-  @apply text-6xl;
-}
+// Compoonents
+@import './components/textfield';
+@import './components/navbar';
 
-html {
-  font-size: 62.5%;
-}
-
-.app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+// Pages
+@import './pages/todos';

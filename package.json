@@ -16,8 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:tailwind": "tailwindcss build src/assets/css/tailwind.css -o src/tailwind.output.css"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,9 +33,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "autoprefixer": "^9.8.6",
-    "postcss-cli": "^7.1.1",
-    "tailwindcss": "^1.7.0"
-  }
+  "devDependencies": {}
 }
