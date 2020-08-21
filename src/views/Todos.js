@@ -2,7 +2,7 @@ import React from 'react';
 
 class Todos extends React.Component {
   state = {
-    temp: '',
+    todoInputText: '',
     todos: [
       {
         id: 1,
@@ -26,29 +26,38 @@ class Todos extends React.Component {
   };
 
   addTodo = (event) => {
-    console.log('Event: ', event);
     event.preventDefault();
     let todos = [...this.state.todos];
+    let todoText = this.state.todoInputText;
+
+    if (todoText === '') {
+      return;
+    }
 
     let id = todos.length + 1;
 
     todos.push({
       id,
-      text: `Harcoded Todo! ${id}`,
+      text: todoText,
       description: '',
       created: new Date().toDateString(),
     });
 
+    // Update the list of todos, and clear the input field
+
+    todoText = '';
+
     this.setState({
       todos,
+      todoInputText: todoText,
     });
   };
 
   handleChange = (event) => {
-    let temp = event.target.value;
+    let todoInputText = event.target.value;
 
     this.setState({
-      temp,
+      todoInputText,
     });
   };
 
@@ -57,7 +66,6 @@ class Todos extends React.Component {
       <div>
         <div className="container mt-4 mx-auto">
           <h1 className="h1">Todos</h1>
-          <p className="body--1">Temp: {this.state.temp} </p>
           <div className="text-field">
             <form className="text-field__form">
               <input
@@ -65,7 +73,7 @@ class Todos extends React.Component {
                 placeholder="New Todo"
                 className="text-field__input"
                 onChange={this.handleChange}
-                value={this.state.temp}
+                value={this.state.todoInputText}
               />
               <button onClick={this.addTodo} className="text-field__action">
                 +
@@ -73,10 +81,6 @@ class Todos extends React.Component {
             </form>
           </div>
           <div className="todos__list">
-            {/* <div className="todos__item">
-              <p className="body--1">Buy Milk</p>
-              <p className="subtitle--1">{new Date().toDateString()}</p>
-            </div> */}
             {this.state.todos.map((todo) => {
               return (
                 <div className="todos__item" key={todo.id}>
