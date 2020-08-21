@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className="nav">
-      <div className="nav__main container mx-auto">
+      <div className="nav__main">
         <ul className="nav__items">
           <li className="nav__item">
             <NavLink

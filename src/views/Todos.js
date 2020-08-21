@@ -1,8 +1,20 @@
 import React from 'react';
 
+import Sidebar from '../components/Sidebar';
+
 class Todos extends React.Component {
   state = {
     todoInputText: '',
+    collections: [
+      {
+        id: 1,
+        name: 'Todo List',
+      },
+      {
+        id: 2,
+        name: 'Shopping List',
+      },
+    ],
     todos: [
       {
         id: 1,
@@ -61,10 +73,16 @@ class Todos extends React.Component {
     });
   };
 
+  myStyles = {
+    display: 'grid',
+    gridTemplateColumns: 'auto 1fr',
+  };
+
   render() {
     return (
-      <div>
-        <div className="container mt-4 mx-auto">
+      <div className="mt-4" style={this.myStyles}>
+        <Sidebar collections={this.state.collections} />
+        <div className="container mx-4">
           <h1 className="h1">Todos</h1>
           <div className="text-field">
             <form className="text-field__form">
