@@ -1,4 +1,8 @@
 .todos {
+  &__content {
+    padding: 2rem;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;

@@ -80,9 +80,9 @@ class Todos extends React.Component {
 
   render() {
     return (
-      <div className="mt-4" style={this.myStyles}>
+      <div className="todos" style={this.myStyles}>
         <Sidebar collections={this.state.collections} />
-        <div className="container mx-4">
+        <div className="todos__content container mx-4">
           <h1 className="h1">Todos</h1>
           <div className="text-field">
             <form className="text-field__form">
