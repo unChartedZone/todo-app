@@ -16,11 +16,11 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/:id" component={Todos} />
+          <Route exact path="/todos" component={Todos} />
 
-          <Route path="/about" component={About} />
+          <Route exact path="/about" component={About} />
 
-          <Route path="/dev" component={Dev} />
+          <Route  exact path="/dev" component={Dev} />
         </Switch>
       </Router>
     </div>
