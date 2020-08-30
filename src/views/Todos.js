@@ -2,8 +2,8 @@ import React from 'react';
 
 import Sidebar from '../components/Sidebar';
 
-class Todos extends React.Component {
-  state = {
+const Todos = () => {
+  let state = {
     todoInputText: '',
     collections: [
       {
@@ -37,7 +37,7 @@ class Todos extends React.Component {
     ],
   };
 
-  addTodo = (event) => {
+  const addTodo = (event) => {
     event.preventDefault();
     let todos = [...this.state.todos];
     let todoText = this.state.todoInputText;
@@ -65,7 +65,7 @@ class Todos extends React.Component {
     });
   };
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     let todoInputText = event.target.value;
 
     this.setState({
@@ -73,44 +73,39 @@ class Todos extends React.Component {
     });
   };
 
-  myStyles = {
+  let myStyles = {
     display: 'grid',
     gridTemplateColumns: 'auto 1fr',
   };
 
-  render() {
-    return (
-      <div className="todos" style={this.myStyles}>
-        <Sidebar collections={this.state.collections} />
-        <div className="todos__content container mx-4">
-          <h1 className="h1">Todos</h1>
-          <div className="text-field">
-            <form className="text-field__form">
-              <input
-                type="text"
-                placeholder="New Todo"
-                className="text-field__input"
-                onChange={this.handleChange}
-                value={this.state.todoInputText}
-              />
-              <button onClick={this.addTodo} className="text-field__action">
-                +
-              </button>
-            </form>
-          </div>
-          <div className="todos__list">
-            {this.state.todos.map((todo) => {
-              return (
-                <div className="todos__item" key={todo.id}>
-                  <p className="body--1">{todo.text}</p>
-                </div>
-              );
-            })}
-          </div>
+  return (
+    <div className="todos" style={myStyles}>
+      <div className="todos__content container mx-4">
+        <h1 className="h1">Todos</h1>
+        <div className="text-field">
+          <form className="text-field__form">
+            <input
+              type="text"
+              placeholder="New Todo"
+              className="text-field__input"
+            />
+            <button onClick={addTodo} className="text-field__action">
+              +
+            </button>
+          </form>
+        </div>
+        <div className="todos__list">
+          {state.todos.map((todo) => {
+            return (
+              <div className="todos__item" key={todo.id}>
+                <p className="body--1">{todo.text}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Todos;

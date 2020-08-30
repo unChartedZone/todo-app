@@ -11,7 +11,7 @@ const Navbar = () => {
               activeClassName="nav__link--active"
               exact
               className="nav__link"
-              to="/todos/:id"
+              to="/todos/"
             >
               Todos
             </NavLink>
