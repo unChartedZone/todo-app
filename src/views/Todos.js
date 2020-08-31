@@ -1,85 +1,30 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 
-const Todos = () => {
-  let state = {
-    todoInputText: '',
-    collections: [
-      {
-        id: 1,
-        name: 'Todo List',
-      },
-      {
-        id: 2,
-        name: 'Shopping List',
-      },
-    ],
-    todos: [
-      {
-        id: 1,
-        text: 'Buy Milk!',
-        description: '',
-        created: new Date().toDateString(),
-      },
-      {
-        id: 2,
-        text: 'Get food for Boots',
-        description: '',
-        created: new Date().toDateString(),
-      },
-      {
-        id: 3,
-        text: 'Take out the trash',
-        description: '',
-        created: new Date().toDateString(),
-      },
-    ],
-  };
+const Todos = (props) => {
 
-  const addTodo = (event) => {
-    event.preventDefault();
-    let todos = [...this.state.todos];
-    let todoText = this.state.todoInputText;
+  const [newTodo, setNewTodo] = useState('') 
 
-    if (todoText === '') {
-      return;
-    }
+  const [todos, setTodos ] = useState([
+    { id: 1, title: 'Buy Milk!'}, 
+    { id: 2, title: 'Feed Bootsie'},
+    { id: 3, title: 'Take out the trash'},
+  ])
 
-    let id = todos.length + 1;
-
-    todos.push({
-      id,
-      text: todoText,
-      description: '',
-      created: new Date().toDateString(),
-    });
-
-    // Update the list of todos, and clear the input field
-
-    todoText = '';
-
-    this.setState({
-      todos,
-      todoInputText: todoText,
-    });
-  };
-
-  const handleChange = (event) => {
-    let todoInputText = event.target.value;
-
-    this.setState({
-      todoInputText,
-    });
-  };
-
-  let myStyles = {
-    display: 'grid',
-    gridTemplateColumns: 'auto 1fr',
-  };
+  const addTodo = (e) => {
+    e.preventDefault()
+    setTodos([
+      ...todos,
+      { 
+        id: todos.length + 1,
+        title: newTodo,
+      }
+    ])
+    setNewTodo('')
+  }
 
   return (
-    <div className="todos" style={myStyles}>
+    <div className="todos">
       <div className="todos__content container mx-4">
         <h1 className="h1">Todos</h1>
         <div className="text-field">
@@ -88,6 +33,8 @@ const Todos = () => {
               type="text"
               placeholder="New Todo"
               className="text-field__input"
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
             />
             <button onClick={addTodo} className="text-field__action">
               +
@@ -95,12 +42,12 @@ const Todos = () => {
           </form>
         </div>
         <div className="todos__list">
-          {state.todos.map((todo) => {
+          {todos.map((todo) => {
             return (
               <div className="todos__item" key={todo.id}>
-                <p className="body--1">{todo.text}</p>
+                <p>{todo.title}</p>
               </div>
-            );
+            )
           })}
         </div>
       </div>

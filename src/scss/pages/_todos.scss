@@ -1,4 +1,7 @@
 .todos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+
   &__content {
     padding: 2rem;
   }
