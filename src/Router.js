@@ -17,12 +17,12 @@ const Router = () => {
         <Route exact path="/">
           <Redirect to="/todos" />
         </Route>
-        <Route exact path="/todos" component={Todos} />
+        <Route exact path="/todos/:id?" children={<Todos />} />
         <Route exact path="/about" component={About} />
         <Route exact path="/dev" component={Dev} />
       </Switch>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default Router
+export default Router;

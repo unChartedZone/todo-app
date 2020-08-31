@@ -1,32 +1,40 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
 const Todos = (props) => {
+  let { id } = useParams();
 
-  const [newTodo, setNewTodo] = useState('') 
+  const [newTodo, setNewTodo] = useState('');
 
-  const [todos, setTodos ] = useState([
-    { id: 1, title: 'Buy Milk!'}, 
-    { id: 2, title: 'Feed Bootsie'},
-    { id: 3, title: 'Take out the trash'},
-  ])
+  const [todos, setTodos] = useState([
+    { id: 1, title: 'Buy Milk!' },
+    { id: 2, title: 'Feed Bootsie' },
+    { id: 3, title: 'Take out the trash' },
+  ]);
+
+  const collections = [
+    { id: 1, name: 'List 1', collectionId: 1 },
+    { id: 2, name: 'List 2' },
+  ];
 
   const addTodo = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setTodos([
       ...todos,
-      { 
+      {
         id: todos.length + 1,
         title: newTodo,
-      }
-    ])
-    setNewTodo('')
-  }
+      },
+    ]);
+    setNewTodo('');
+  };
 
   return (
     <div className="todos">
+      <Sidebar collections={collections} />
       <div className="todos__content container mx-4">
-        <h1 className="h1">Todos</h1>
+        <h1 className="h1">{id ? collections[id - 1].name : 'New List'}</h1>
         <div className="text-field">
           <form className="text-field__form">
             <input
@@ -47,12 +55,12 @@ const Todos = (props) => {
               <div className="todos__item" key={todo.id}>
                 <p>{todo.title}</p>
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Todos;

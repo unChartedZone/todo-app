@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 
 const Dev = (props) => {
-
-  console.log(props)
-
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
 
   return (
     <div>
@@ -16,6 +13,5 @@ const Dev = (props) => {
     </div>
   );
 };
-
 
 export default Dev;
