@@ -17,7 +17,7 @@ const Router = () => {
         <Route exact path="/">
           <Redirect to="/todos" />
         </Route>
-        <Route exact path="/todos/:id?" children={<Todos />} />
+        <Route exact path="/todos/:collectionId?" children={<Todos />} />
         <Route exact path="/about" component={About} />
         <Route exact path="/dev" component={Dev} />
       </Switch>

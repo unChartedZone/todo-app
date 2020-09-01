@@ -9,4 +9,24 @@
   &__list {
     list-style: none;
   }
+
+  &__item {
+    font-size: 1.875rem;
+    margin: 0 0 0.75rem;
+  }
+
+  &__link {
+    text-decoration: none;
+
+    &, 
+    &:active, 
+    &:link,
+    &:visited {
+      color: #3399FF;
+    }
+
+    &:hover {
+      color: darken(#3399FF, 10%);
+    }
+  }
 }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
 const Todos = (props) => {
-  let { id } = useParams();
+  let { collectionId } = useParams();
 
   const [newTodo, setNewTodo] = useState('');
 
@@ -14,12 +14,18 @@ const Todos = (props) => {
   ]);
 
   const collections = [
-    { id: 1, name: 'List 1', collectionId: 1 },
-    { id: 2, name: 'List 2' },
+    { collectionId: 1, name: 'Todo List', todosId: 1 },
+    { collectionId: 2, name: 'Shopping List', todosId: 2 },
   ];
 
   const addTodo = (e) => {
     e.preventDefault();
+    if(newTodo === '') {
+      console.log('Empty Todo!')
+      return
+    }
+
+
     setTodos([
       ...todos,
       {
@@ -34,8 +40,8 @@ const Todos = (props) => {
     <div className="todos">
       <Sidebar collections={collections} />
       <div className="todos__content container mx-4">
-        <h1 className="h1">{id ? collections[id - 1].name : 'New List'}</h1>
-        <div className="text-field">
+        <h1 className="h1">{collectionId ? collections[collectionId - 1].name : 'New List'}</h1>
+        <div className="text-field mt-10">
           <form className="text-field__form">
             <input
               type="text"
