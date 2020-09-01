@@ -9,7 +9,6 @@ const Navbar = () => {
           <li className="nav__item">
             <NavLink
               activeClassName="nav__link--active"
-              exact
               className="nav__link"
               to="/todos/"
             >
