@@ -1,7 +1,7 @@
 .text-field {
   border: 1px solid #e4d1d1;
   border-radius: 7px;
-  font-size: 1.5rem;
+  font-size: 2rem;
 
   &__form {
     display: flex;
@@ -15,6 +15,7 @@
     padding: 0.5rem 1rem;
     border: none;
     outline: none;
+    font-size: 1.6rem;
   }
 
   &__action {

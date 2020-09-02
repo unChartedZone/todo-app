@@ -5,7 +5,6 @@ import Sidebar from '../components/Sidebar';
 const Todos = (props) => {
   let { id } = useParams();
 
-  const [collectionId, setCollectionId] = useState(id);
   const [newTodo, setNewTodo] = useState('');
   const [todos, setTodos] = useState([]);
 
