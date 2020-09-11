@@ -1,41 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import Todo from '../components/Todo';
 
-const Todos = (props) => {
-  let { id } = useParams();
+import todosReducer from '../reducers/todos';
 
-  const [newTodo, setNewTodo] = useState('');
-  const [todos, setTodos] = useState([]);
-
-  const mounted = () => {
-    console.log('Mounted!');
-  };
-
-  const routeChanged = () => {
-    console.log(`List changed to ${id}!`);
-    if (id) {
-      setTodos([...sampleTodoLists[id]]);
-    }
-  };
-
-  useEffect(routeChanged, [id]);
-
-  useEffect(mounted, []);
-
+const TodosList = (props) => {
   const collections = {
     1: { name: 'Task List', todosId: 1 },
     2: { name: 'Shopping List', todosId: 2 },
   };
 
-  const sampleTodoLists = {
-    1: [
-      { id: 1, title: 'Buy Milk!' },
-      { id: 2, title: 'Feed Bootsie' },
-      { id: 3, title: 'Take out the trash' },
-    ],
-    2: [],
+  let { id } = useParams();
+  const [newTodo, setNewTodo] = useState('');
+  // const [todos, setTodos] = useState([]);
+  const [todos, dispatch] = useReducer(todosReducer, []);
+
+  const mounted = () => {
+    console.log('Mounted!');
   };
+
+  useEffect(() => {
+    console.log(`List changed to ${id}!`);
+    if (id) {
+      dispatch({
+        type: 'POPULATE_TODOS',
+        todos: [{ id: 1, title: 'Buy Milk', description: '' }],
+      });
+    }
+  }, [id]);
+
+  useEffect(mounted, []);
 
   const addTodo = (e) => {
     e.preventDefault();
@@ -43,14 +38,11 @@ const Todos = (props) => {
       console.log('Empty Todo!');
       return;
     }
-
-    setTodos([
-      ...todos,
-      {
-        id: todos.length + 1,
-        title: newTodo,
-      },
-    ]);
+    dispatch({
+      type: 'ADD_TODO',
+      title: newTodo,
+      description: '',
+    });
     setNewTodo('');
   };
 
@@ -75,11 +67,7 @@ const Todos = (props) => {
         </div>
         <div className="todos__list">
           {todos.map((todo) => {
-            return (
-              <div className="todos__item" key={todo.id}>
-                <p>{todo.title}</p>
-              </div>
-            );
+            return <Todo key={todo.id} todo={todo} />;
           })}
         </div>
       </div>
@@ -87,4 +75,4 @@ const Todos = (props) => {
   );
 };
 
-export default Todos;
+export default TodosList;
