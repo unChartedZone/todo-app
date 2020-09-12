@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Todo from '../components/Todo';
+import TodosContext from '../context/todos-context';
 
 import todosReducer from '../reducers/todos';
 
@@ -47,31 +48,33 @@ const TodosList = (props) => {
   };
 
   return (
-    <div className="todos">
-      <Sidebar collections={collections} />
-      <div className="todos__content container mx-4">
-        <h1 className="h1">{id ? collections[id].name : 'New List'}</h1>
-        <div className="text-field mt-10">
-          <form className="text-field__form">
-            <input
-              type="text"
-              placeholder="New Todo"
-              className="text-field__input"
-              value={newTodo}
-              onChange={(e) => setNewTodo(e.target.value)}
-            />
-            <button onClick={addTodo} className="text-field__action">
-              +
-            </button>
-          </form>
-        </div>
-        <div className="todos__list">
-          {todos.map((todo) => {
-            return <Todo key={todo.id} todo={todo} />;
-          })}
+    <TodosContext.Provider value={todos}>
+      <div className="todos">
+        <Sidebar collections={collections} />
+        <div className="todos__content container mx-4">
+          <h1 className="h1">{id ? collections[id].name : 'New List'}</h1>
+          <div className="text-field mt-10">
+            <form className="text-field__form">
+              <input
+                type="text"
+                placeholder="New Todo"
+                className="text-field__input"
+                value={newTodo}
+                onChange={(e) => setNewTodo(e.target.value)}
+              />
+              <button onClick={addTodo} className="text-field__action">
+                +
+              </button>
+            </form>
+          </div>
+          <div className="todos__list">
+            {todos.map((todo) => {
+              return <Todo key={todo.id} todo={todo} />;
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </TodosContext.Provider>
   );
 };
 
