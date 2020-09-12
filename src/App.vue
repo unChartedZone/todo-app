@@ -1,19 +1,10 @@
 <template>
   <div id="app">
-    <Navbar />
-    <router-view />
+    <div class="app__content">
+      <router-view />
+    </div>
   </div>
 </template>
-
-<script>
-import Navbar from './components/Navbar.vue';
-
-export default {
-  components: {
-    Navbar,
-  },
-};
-</script>
 
 <style lang="scss">
 * {
@@ -35,5 +26,9 @@ html {
 
 .h1 {
   font-size: 5.2rem;
+}
+
+.h2 {
+  font-size: 4.5rem;
 }
 </style>

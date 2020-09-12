@@ -5,26 +5,6 @@
         <router-link class="nav__link" to="/">Todos</router-link>
         <router-link class="nav__link" to="/dev">Dev</router-link>
       </div>
-      <div class="dropdown">
-        <button @click="isOpen = !isOpen" class="dropdown__btn">
-          <img
-            class="h-full w-full object-cover "
-            src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3727&q=80"
-            alt="Your avatar"
-          />
-        </button>
-        <button
-          v-if="isOpen"
-          @click="isOpen = false"
-          tabindex="-1"
-          class="fixed inset-0 h-full w-full bg-black opacity-50"
-        ></button>
-        <div v-if="isOpen" class="dropdown__list">
-          <a class="dropdown__item" href="#">Account Settings</a>
-          <a class="dropdown__item" href="#">Support</a>
-          <a class="dropdown__item" href="#">Sign Out</a>
-        </div>
-      </div>
     </div>
   </nav>
 </template>
@@ -54,33 +34,41 @@ export default {
 
 <style lang="scss">
 .nav {
-  @apply bg-gray-800;
-  @apply shadow-lg;
-
+  background-color: #2d3748;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 50;
   padding: 2rem;
 
   &__main {
-    @apply mx-auto;
+    margin: 0 auto;
   }
 
   &__link {
-    font-size: 1.85rem;
-    font-weight: bold;
-    color: white;
+    &, &:link, &:active, &:visited {
+      font-size: 1.85rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      margin: 0 1.5rem 0 0;
+    }
 
     &.router-link-exact-active {
-      @apply text-indigo-300;
+      color: #a3bffa;
     }
   }
 }
 
 .dropdown {
-  @apply relative;
+  position: relative;
 
   &__btn {
-    @apply relative;
-    @apply z-10;
-    @apply block;
+    position: relative;
+    z-index: 10;
+    display: block;
     @apply h-12;
     @apply w-12;
     @apply rounded-full;
