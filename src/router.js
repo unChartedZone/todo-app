@@ -15,6 +15,11 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'new-todos',
+      component: Todos,
+    },
+    {
+      path: '/:id',
       name: 'Todos',
       component: Todos,
     },
