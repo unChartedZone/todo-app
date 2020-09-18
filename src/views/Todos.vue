@@ -3,23 +3,26 @@
     <div class="todos__sidebar">
       <div class="sidebar__container">
         <router-link
-          v-for="(collection, id) in collections"
-          :key="id"
+          v-for="(collection, index) in collections"
+          :key="index"
           class="sidebar__link"
-          :to="`/${id}`"
+          :to="`/${index}`"
         >
           {{ collection.title }}
         </router-link>
-        <router-link class="sidebar__link" :to="{ name: 'new-todos' }">
+        <!-- <a href="#" class="sidebar__link" @click="toggleNewListForm">
           New List +
-        </router-link>
+        </a> -->
+        <!-- <router-link class="sidebar__link" :to="{ name: 'new-todos' }">
+          New List +
+        </router-link> -->
       </div>
     </div>
     <div class="todos__container">
       <h1 class="h1">
-        {{ currentCollectionId ? collections[currentCollectionId].title : '' }}
+        {{ collectionId ? collections[collectionId].title : '' }}
       </h1>
-      <h1 class="h1" v-if="!currentCollectionId">{{ title }}</h1>
+      <h1 class="h1" v-if="!collectionId">{{ title }}</h1>
       <div class="my-2">
         <div class="textfield">
           <input v-model="todo.title" placeholder="New Todo" type="text" />
@@ -27,12 +30,16 @@
         </div>
       </div>
       <div class="todos__list">
+        <div style="height: 2rem;"></div>
         <div
           v-for="(item, index) in getTodoItems"
           :key="index"
           class="todos__item"
         >
           {{ item.title }}
+          <div @click="removeTodo(index)" class="btn__icon">
+            <img src="@/assets/svg/temp.svg" alt="" />
+          </div>
         </div>
       </div>
     </div>
@@ -47,45 +54,53 @@ export default {
         title: '',
         description: '',
       },
-      currentCollectionId: '',
-      collections: {
-        wropncwce: {
+      collectionId: '',
+      collections: [
+        {
           title: 'Todo List',
           items: [
             {
-              title: 'Take ou the trash',
+              title: 'Take out the trash',
               description: 'this needs to be done!',
             },
           ],
         },
-        ofwofhew: {
+        {
           title: 'Shopping List',
           items: [{ title: 'PS4', description: '' }],
         },
-      },
-      title: 'New Title',
+      ],
+      title: 'New List',
     };
   },
   computed: {
     getTodoItems() {
-      return this.currentCollectionId ? this.collections[this.$route.params.id].items : [];
+      return this.collectionId
+        ? this.collections[this.$route.params.id].items
+        : [];
     },
   },
   watch: {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       // react to route changes...
-      this.currentCollectionId = to.params.id;
+      this.collectionId = to.params.id;
       this.todo.title = '';
       this.todo.description = '';
     },
   },
   mounted() {
-    this.currentCollectionId = this.$route.params.id;
+    this.collectionId = this.$route.params.id;
   },
   methods: {
     addTodo() {
-      this.collections[this.currentCollectionId].items.push({ title: 'Take out the trash', description: '' });
+      this.collections[this.collectionId].items.push({
+        title: this.todo.title,
+        description: '',
+      });
+    },
+    removeTodo(index) {
+      this.collections[this.collectionId].items.splice(index, 1);
     },
   },
 };
@@ -118,6 +133,9 @@ export default {
     border: 1px solid #eee;
     border-radius: 7px;
     box-shadow: 0px 10px 8px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 2rem;
     padding: 2rem;
     width: 60%;
@@ -141,6 +159,25 @@ export default {
     &:visited {
       font-size: 2rem;
       text-decoration: none;
+    }
+  }
+}
+
+.btn {
+  &__icon {
+    border: 1px solid black;
+    background-color: transparent;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 100%;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+
+    img {
+      height: 55%;
     }
   }
 }
