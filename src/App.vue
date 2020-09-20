@@ -29,17 +29,4 @@ html {
 .h2 {
   font-size: 3rem;
 }
-
-.m {
-  &y {
-    &-1{
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    &-2{
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  }
-}
 </style>
