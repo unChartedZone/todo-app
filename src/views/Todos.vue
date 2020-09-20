@@ -1,7 +1,7 @@
 <template>
   <div class="todos__app">
     <div class="todos__sidebar">
-      <div class="sidebar__container">
+      <div class="sidebar__list">
         <router-link
           v-for="(collection, index) in collections"
           :key="index"
@@ -10,12 +10,29 @@
         >
           {{ collection.title }}
         </router-link>
-        <!-- <a href="#" class="sidebar__link" @click="toggleNewListForm">
-          New List +
-        </a> -->
-        <!-- <router-link class="sidebar__link" :to="{ name: 'new-todos' }">
-          New List +
-        </router-link> -->
+        <div class="dropdown">
+          <button class="btn" @click="showNewListForm = true">
+            New List +
+          </button>
+          <div
+            v-if="showNewListForm"
+            @click="showNewListForm = false"
+            class="dropdown__bg"
+          />
+          <div v-if="showNewListForm" class="dropdown__content">
+            <h1>List Title</h1>
+            <div class="mt-2" style="display: flex;">
+              <input
+                v-model="newCollectionTitle"
+                class="textfield mr-2"
+                type="text"
+              />
+              <button @click="createCollection" class="btn__icon">
+                <img src="@/assets/svg/plus.svg" alt="plus-icon" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="todos__container">
@@ -29,8 +46,7 @@
           <button @click="addTodo">+</button>
         </div>
       </div>
-      <div class="todos__list">
-        <div style="height: 2rem;"></div>
+      <div class="todos__list" v-if="getTodoItems.length != 0">
         <div
           v-for="(item, index) in getTodoItems"
           :key="index"
@@ -50,6 +66,8 @@
 export default {
   data() {
     return {
+      showNewListForm: false,
+      newCollectionTitle: '',
       todo: {
         title: '',
         description: '',
@@ -62,6 +80,10 @@ export default {
             {
               title: 'Take out the trash',
               description: 'this needs to be done!',
+            },
+            {
+              title: 'Vaccum the floors',
+              description: 'Theyre very dusty!',
             },
           ],
         },
@@ -102,6 +124,20 @@ export default {
     removeTodo(index) {
       this.collections[this.collectionId].items.splice(index, 1);
     },
+    createCollection() {
+      this.collections.push({
+        title: this.newCollectionTitle,
+        items: [],
+      });
+
+      this.$router.push({
+        name: 'Todos',
+        params: { id: this.collections.length - 1 },
+      });
+
+      this.showNewListForm = false;
+      this.newCollectionTitle = '';
+    },
   },
 };
 </script>
@@ -127,29 +163,33 @@ export default {
 
   &__list {
     margin: 4rem 0;
+    box-shadow: 0px 10px 8px 2px rgba(0, 0, 0, 0.1);
+    width: 60%;
   }
 
   &__item {
     border: 1px solid #eee;
     border-radius: 7px;
-    box-shadow: 0px 10px 8px 2px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 2rem;
     padding: 2rem;
-    width: 60%;
   }
 }
 
 .sidebar {
-  &__container {
-    box-shadow: 10px 0px 2rem 2rem rgba(0, 0, 0, 0.1);
+  &__list {
+    box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1);
     height: 100vh;
     padding: 2rem 4rem;
     position: fixed;
     display: flex;
     flex-direction: column;
+
+    & > * {
+      margin-bottom: 1rem;
+    }
   }
 
   &__link {
@@ -157,13 +197,52 @@ export default {
     &:active,
     &:link,
     &:visited {
+      color: $color-black;
       font-size: 2rem;
       text-decoration: none;
+    }
+
+    &:hover {
+      color: $color-1;
     }
   }
 }
 
+.dropdown {
+  position: relative;
+
+  &__content {
+    border: 1px solid #eeeeee;
+    border-radius: 7px;
+    box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 1rem;
+    top: 110%;
+    min-width: 10rem;
+    position: absolute;
+    z-index: 15;
+  }
+
+  &__bg {
+    background: transparent;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+}
+
 .btn {
+  border: none;
+  border-radius: 7px;
+  background-color: $color-1;
+  color: $color-white;
+  font-size: 2rem;
+  margin-top: 1rem;
+  padding: 0.2rem 0.8rem;
+
   &__icon {
     border: 1px solid black;
     background-color: transparent;
@@ -192,7 +271,7 @@ export default {
 
   // Highlight inner textfield
   &:focus-within {
-    border-color: blue;
+    border-color: $color-1;
   }
 
   input {
