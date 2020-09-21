@@ -14,18 +14,13 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'new-todos',
-      component: Todos,
-    },
-    {
-      path: '/:id',
-      name: 'Todos',
+      path: '/todos/:id',
+      name: 'todos',
       component: Todos,
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login,
     },
     {
@@ -35,7 +30,7 @@ const router = new Router({
     },
     {
       path: '/dev',
-      name: 'Dev',
+      name: 'dev',
       component: Dev,
     },
   ],

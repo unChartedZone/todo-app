@@ -1,3 +1,7 @@
+.container {
+  max-width: 1280px;
+}
+
 .m {
   &y {
     &-1 {
@@ -7,6 +11,21 @@
     &-2 {
       margin-top: 1rem;
       margin-bottom: 1rem;
+    }
+  }
+
+  &x {
+    &-1 {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    &-2 {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    &-auto {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 

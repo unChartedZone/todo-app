@@ -6,7 +6,8 @@
           v-for="(collection, index) in collections"
           :key="index"
           class="sidebar__link"
-          :to="`/${index}`"
+          :to="{ name: 'todos', params: { id: `${index}` } }"
+          exact
         >
           {{ collection.title }}
         </router-link>
@@ -37,9 +38,11 @@
     </div>
     <div class="todos__container">
       <h1 class="h1">
-        {{ collectionId ? collections[collectionId].title : '' }}
+        {{ collectionId ? collections[$route.params.id].title : '' }}
+        <!-- {{ collections[collectionId].title }} -->
       </h1>
-      <h1 class="h1" v-if="!collectionId">{{ title }}</h1>
+      <!-- <h1 class="h1">{{ $route.params.id }}</h1>
+      <h1 class="h1">Collection ID: {{ collectionId }}</h1> -->
       <div class="my-2">
         <div class="textfield">
           <input v-model="todo.title" placeholder="New Todo" type="text" />
@@ -52,7 +55,10 @@
           :key="index"
           class="todos__item"
         >
-          {{ item.title }}
+          <div class="todos__content">
+            <z-checkbox class="mr-2" />
+            {{ item.title }}
+          </div>
           <div @click="removeTodo(index)" class="btn__icon">
             <img src="@/assets/svg/temp.svg" alt="" />
           </div>
@@ -116,6 +122,8 @@ export default {
   },
   methods: {
     addTodo() {
+      if (this.todo.title === '') return;
+
       this.collections[this.collectionId].items.push({
         title: this.todo.title,
         description: '',
@@ -131,7 +139,7 @@ export default {
       });
 
       this.$router.push({
-        name: 'Todos',
+        name: 'todos',
         params: { id: this.collections.length - 1 },
       });
 
@@ -175,6 +183,10 @@ export default {
     align-items: center;
     font-size: 2rem;
     padding: 2rem;
+  }
+
+  &__content {
+    display: flex;
   }
 }
 

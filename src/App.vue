@@ -4,6 +4,16 @@
   </div>
 </template>
 
+<script>
+// import { auth } from './firebase';
+
+export default {
+  // mounted() {
+  //   console.log(auth.currentUser);
+  // },
+};
+</script>
+
 <style lang="scss">
 * {
   margin: 0;
