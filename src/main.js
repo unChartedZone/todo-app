@@ -4,8 +4,13 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import '@/assets/css/tailwind.css';
+import ZCheckbox from './components/ZCheckbox.vue';
+import ZTextfield from './components/ZTextfield.vue';
 
 Vue.config.productionTip = false;
+
+Vue.component('z-checkbox', ZCheckbox);
+Vue.component('z-textfield', ZTextfield);
 
 new Vue({
   router,
