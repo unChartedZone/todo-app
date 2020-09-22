@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import { auth } from '../firebase';
+
 export default {
   data() {
     return {
@@ -123,6 +125,8 @@ export default {
   },
   mounted() {
     this.collectionId = this.$route.params.id;
+
+    console.log(auth.currentUser);
 
     if (this.collectionId >= this.collections.length) {
       this.$router.push({ name: 'todos', params: { id: '0' } });
