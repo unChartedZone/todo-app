@@ -14,6 +14,10 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+      redirect: { name: 'todos' },
+    },
+    {
       path: '/todos/:id',
       name: 'todos',
       component: Todos,

@@ -22,16 +22,18 @@
           />
           <div v-if="showNewListForm" class="dropdown__content">
             <h1>List Title</h1>
-            <div class="mt-2" style="display: flex;">
-              <input
-                v-model="newCollectionTitle"
-                class="textfield mr-2"
-                type="text"
-              />
-              <button @click="createCollection" class="btn__icon">
-                <img src="@/assets/svg/plus.svg" alt="plus-icon" />
-              </button>
-            </div>
+            <form @submit.prevent>
+              <div class="mt-2" style="display: flex;">
+                <input
+                  v-model="newCollectionTitle"
+                  class="textfield mr-2"
+                  type="text"
+                />
+                <button @click="createCollection" class="btn__icon">
+                  <img src="@/assets/svg/plus.svg" alt="plus-icon" />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -44,10 +46,12 @@
       <!-- <h1 class="h1">{{ $route.params.id }}</h1>
       <h1 class="h1">Collection ID: {{ collectionId }}</h1> -->
       <div class="my-2">
-        <div class="textfield">
-          <input v-model="todo.title" placeholder="New Todo" type="text" />
-          <button @click="addTodo">+</button>
-        </div>
+        <form @submit.prevent>
+          <div class="textfield">
+            <input v-model="todo.title" placeholder="New Todo" type="text" />
+            <button @click="addTodo">+</button>
+          </div>
+        </form>
       </div>
       <div class="todos__list" v-if="getTodoItems.length != 0">
         <div
@@ -119,6 +123,10 @@ export default {
   },
   mounted() {
     this.collectionId = this.$route.params.id;
+
+    if (this.collectionId >= this.collections.length) {
+      this.$router.push({ name: 'todos', params: { id: '0' } });
+    }
   },
   methods: {
     addTodo() {
@@ -128,6 +136,8 @@ export default {
         title: this.todo.title,
         description: '',
       });
+
+      this.todo.title = '';
     },
     removeTodo(index) {
       this.collections[this.collectionId].items.splice(index, 1);
