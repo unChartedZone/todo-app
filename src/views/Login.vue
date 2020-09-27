@@ -1,5 +1,6 @@
 <template>
   <section class="login__page">
+    <Navbar />
     <div class="login__container mx-auto">
       <h1 class="h1 mb-4">Login</h1>
       <form @submit.prevent>
@@ -7,11 +8,11 @@
         <input v-model="email" class="textfield mb-4" type="text" />
         <label class="text-base">Password</label>
         <input v-model="password" class="textfield mb-4" type="password" />
-        <button @click="loginUser" class="btn">
+        <button @click="loginUser" class="btn" type="submit">
           Login
         </button>
-        <button @click="getCurrentUser" class="btn">Get Current User</button>
-        <button @click="signoutUser" class="btn">Sign Out User</button>
+        <!-- <button @click="getCurrentUser" class="btn">Get Current User</button>
+        <button @click="signoutUser" class="btn">Sign Out User</button> -->
       </form>
     </div>
   </section>
@@ -19,8 +20,12 @@
 
 <script>
 import { auth } from '../firebase';
+import Navbar from '../components/Navbar.vue';
 
 export default {
+  components: {
+    Navbar,
+  },
   data() {
     return {
       email: '',
@@ -35,6 +40,7 @@ export default {
           this.password,
         );
         console.log('Successfully Logged In!', response);
+        this.$router.push({ name: 'todos', params: { id: '0' } });
       } catch (e) {
         console.log('Error Logging In: ', e);
       }
