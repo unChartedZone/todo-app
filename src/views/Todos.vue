@@ -22,14 +22,18 @@
           />
           <div v-if="showNewListForm" class="dropdown__content">
             <h1>List Title</h1>
-            <form @submit.prevent>
+            <form @submit.prevent="createCollection">
               <div class="mt-2" style="display: flex;">
                 <input
                   v-model="newCollectionTitle"
                   class="textfield mr-2"
                   type="text"
                 />
-                <button @click="createCollection" class="btn__icon">
+                <button
+                  @click="createCollection"
+                  class="btn__icon"
+                  type="button"
+                >
                   <img src="@/assets/svg/plus.svg" alt="plus-icon" />
                 </button>
               </div>
@@ -40,11 +44,8 @@
     </div>
     <div class="todos__container">
       <h1 class="h1">
-        {{ collectionId ? collections[$route.params.id].title : '' }}
-        <!-- {{ collections[collectionId].title }} -->
+        {{ areCollectionsLoaded ? collections[$route.params.id].title : '' }}
       </h1>
-      <!-- <h1 class="h1">{{ $route.params.id }}</h1>
-      <h1 class="h1">Collection ID: {{ collectionId }}</h1> -->
       <div class="my-2">
         <form @submit.prevent>
           <div class="textfield">
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-import { auth } from '../firebase';
+import { auth, firestore } from '../firebase';
 
 export default {
   data() {
@@ -85,33 +86,18 @@ export default {
         description: '',
       },
       collectionId: '',
-      collections: [
-        {
-          title: 'Todo List',
-          items: [
-            {
-              title: 'Take out the trash',
-              description: 'this needs to be done!',
-            },
-            {
-              title: 'Vaccum the floors',
-              description: 'Theyre very dusty!',
-            },
-          ],
-        },
-        {
-          title: 'Shopping List',
-          items: [{ title: 'PS4', description: '' }],
-        },
-      ],
+      collections: [],
       title: 'New List',
     };
   },
   computed: {
     getTodoItems() {
-      return this.collectionId
+      return this.areCollectionsLoaded
         ? this.collections[this.$route.params.id].items
         : [];
+    },
+    areCollectionsLoaded() {
+      return this.collectionId && this.collections.length > 0;
     },
   },
   watch: {
@@ -123,16 +109,26 @@ export default {
       this.todo.description = '';
     },
   },
-  mounted() {
+  async mounted() {
+    await this.loadCollections();
     this.collectionId = this.$route.params.id;
-
-    console.log(auth.currentUser);
 
     if (this.collectionId >= this.collections.length) {
       this.$router.push({ name: 'todos', params: { id: '0' } });
     }
   },
   methods: {
+    async loadCollections() {
+      const user = auth.currentUser;
+      const todosDoc = firestore.collection('todos').doc(user.uid);
+      const collections = await todosDoc.collection('lists').get();
+
+      collections.forEach((collection) => {
+        this.collections.push({
+          ...collection.data(),
+        });
+      });
+    },
     addTodo() {
       if (this.todo.title === '') return;
 
