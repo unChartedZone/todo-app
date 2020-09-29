@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div>
-      <Navbar />
-      <h1>Todos Home</h1>
+    <Navbar />
+    <div class="home__page">
+      <h1 class="h1">Todos</h1>
     </div>
   </section>
 </template>
@@ -16,3 +16,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.home {
+  &__page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+}
+</style>

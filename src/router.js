@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
   if (requiresAuth && !currentUser) next('/login');
-  else if (to.name === 'login' && currentUser) {
+  else if ((to.name === 'login' || to.name === 'home') && currentUser) {
     next({ name: 'todos', params: { id: '0' } });
   } else next();
 });
