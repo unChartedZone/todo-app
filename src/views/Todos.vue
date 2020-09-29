@@ -1,5 +1,20 @@
 <template>
   <div class="todos__app">
+    <div class="account__container">
+      <div class="account__button">
+        <button
+          @click="showAccountDropdown = !showAccountDropdown"
+          class="btn__icon"
+        >
+          <img src="@/assets/svg/account.svg" alt="Account Icon" />
+        </button>
+      </div>
+      <div style="position: relative;">
+        <div v-if="showAccountDropdown" class="account__dropdown">
+          <button @click="logout" class="btn">Logout</button>
+        </div>
+      </div>
+    </div>
     <div class="todos__sidebar">
       <div class="sidebar__list">
         <router-link
@@ -80,6 +95,7 @@ export default {
   data() {
     return {
       showNewListForm: false,
+      showAccountDropdown: false,
       newCollectionTitle: '',
       todo: {
         title: '',
@@ -156,11 +172,32 @@ export default {
       this.showNewListForm = false;
       this.newCollectionTitle = '';
     },
+    async logout() {
+      await auth.signOut();
+      this.$router.push({ name: 'home' });
+    },
   },
 };
 </script>
 
 <style lang="scss">
+.account {
+  &__container {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+  }
+
+  &__dropdown {
+    position: fixed;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+    padding: 1rem;
+    margin-top: 1rem;
+    right: 2rem;
+  }
+}
 .todos {
   &__app {
     width: 100%;
