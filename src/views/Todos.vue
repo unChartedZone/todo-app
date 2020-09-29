@@ -15,48 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="todos__sidebar">
-      <div class="sidebar__list">
-        <router-link
-          v-for="(collection, index) in collections"
-          :key="index"
-          class="sidebar__link"
-          :to="{ name: 'todos', params: { id: `${index}` } }"
-          exact
-        >
-          {{ collection.title }}
-        </router-link>
-        <div class="dropdown">
-          <button class="btn" @click="showNewListForm = true">
-            New List +
-          </button>
-          <div
-            v-if="showNewListForm"
-            @click="showNewListForm = false"
-            class="dropdown__bg"
-          />
-          <div v-if="showNewListForm" class="dropdown__content">
-            <h1>List Title</h1>
-            <form @submit.prevent="createCollection">
-              <div class="mt-2" style="display: flex;">
-                <input
-                  v-model="newCollectionTitle"
-                  class="textfield mr-2"
-                  type="text"
-                />
-                <button
-                  @click="createCollection"
-                  class="btn__icon"
-                  type="button"
-                >
-                  <img src="@/assets/svg/plus.svg" alt="plus-icon" />
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Sidebar :collections="collections" />
     <div class="todos__container">
       <h1 class="h1">
         {{ areCollectionsLoaded ? collections[$route.params.id].title : '' }}
@@ -91,12 +50,15 @@
 <script>
 import { auth, firestore } from '../firebase';
 
+import Sidebar from '../components/Sidebar.vue';
+
 export default {
+  components: {
+    Sidebar,
+  },
   data() {
     return {
-      showNewListForm: false,
       showAccountDropdown: false,
-      newCollectionTitle: '',
       todo: {
         title: '',
         description: '',
@@ -157,20 +119,6 @@ export default {
     },
     removeTodo(index) {
       this.collections[this.collectionId].items.splice(index, 1);
-    },
-    createCollection() {
-      this.collections.push({
-        title: this.newCollectionTitle,
-        items: [],
-      });
-
-      this.$router.push({
-        name: 'todos',
-        params: { id: this.collections.length - 1 },
-      });
-
-      this.showNewListForm = false;
-      this.newCollectionTitle = '';
     },
     async logout() {
       await auth.signOut();
