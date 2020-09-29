@@ -29,6 +29,10 @@ const router = new Router({
       },
     },
     {
+      path: '/todos',
+      redirect: { name: 'todos', params: { id: '0' } },
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login,
@@ -51,11 +55,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const { currentUser } = auth;
-  console.log('Router, Current User: ', currentUser);
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
   if (requiresAuth && !currentUser) next('/login');
-  else next();
+  else if (to.name === 'login' && currentUser) {
+    next({ name: 'todos', params: { id: '0' } });
+  } else next();
 });
 
 export default router;
