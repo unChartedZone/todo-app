@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { auth, firestore } from '../firebase';
 
 import Sidebar from '../components/Sidebar.vue';
@@ -64,6 +65,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(['potato']),
     getTodoItems() {
       return this.areCollectionsLoaded
         ? this.collections[this.$route.params.id].items
@@ -89,6 +91,7 @@ export default {
     if (this.collectionId >= this.collections.length) {
       this.$router.push({ name: 'todos', params: { id: '0' } });
     }
+    console.table(this.potato);
   },
   methods: {
     async loadCollections() {
