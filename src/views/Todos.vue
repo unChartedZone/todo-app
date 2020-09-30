@@ -20,14 +20,7 @@
       <h1 class="h1">
         {{ areCollectionsLoaded ? collections[$route.params.id].title : '' }}
       </h1>
-      <div class="my-2">
-        <form @submit.prevent>
-          <div class="textfield">
-            <input v-model="todo.title" placeholder="New Todo" type="text" />
-            <button @click="addTodo">+</button>
-          </div>
-        </form>
-      </div>
+      <TodoForm :todo="todo" :collection="collections[collectionId]" />
       <div class="todos__list" v-if="getTodoItems.length != 0">
         <div
           v-for="(item, index) in getTodoItems"
@@ -51,10 +44,12 @@
 import { auth, firestore } from '../firebase';
 
 import Sidebar from '../components/Sidebar.vue';
+import TodoForm from '../components/Todos/TodoForm.vue';
 
 export default {
   components: {
     Sidebar,
+    TodoForm,
   },
   data() {
     return {
@@ -106,16 +101,6 @@ export default {
           ...collection.data(),
         });
       });
-    },
-    addTodo() {
-      if (this.todo.title === '') return;
-
-      this.collections[this.collectionId].items.push({
-        title: this.todo.title,
-        description: '',
-      });
-
-      this.todo.title = '';
     },
     removeTodo(index) {
       this.collections[this.collectionId].items.splice(index, 1);
@@ -248,7 +233,7 @@ export default {
   color: $color-white;
   font-size: 2rem;
   margin-top: 1rem;
-  padding: 0.2rem 0.8rem;
+  padding: 0.5rem 0.8rem;
 
   &__icon {
     border: 1px solid black;
@@ -265,32 +250,6 @@ export default {
     img {
       height: 55%;
     }
-  }
-}
-
-.textfield {
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  width: 20rem;
-
-  // Highlight inner textfield
-  &:focus-within {
-    border-color: $color-1;
-  }
-
-  input {
-    border: none;
-    outline: none;
-  }
-
-  button {
-    background: transparent;
-    border: none;
-    font-size: 3rem;
-    line-height: 0.3;
   }
 }
 </style>
