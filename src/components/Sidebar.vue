@@ -21,14 +21,14 @@
         />
         <div v-if="showNewListForm" class="dropdown__content">
           <h1>List Title</h1>
-          <form @submit.prevent="createCollection">
+          <form @submit.prevent="createCollectionForm()">
             <div class="mt-2" style="display: flex;">
               <input
                 v-model="newCollectionTitle"
                 class="textfield mr-2"
                 type="text"
               />
-              <button @click="createCollection" class="btn__icon" type="button">
+              <button class="btn__icon">
                 <img src="@/assets/svg/plus.svg" alt="plus-icon" />
               </button>
             </div>
@@ -40,30 +40,22 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
-  props: {
-    collections: {
-      type: Array,
-    },
-  },
   data() {
     return {
       showNewListForm: false,
       newCollectionTitle: '',
     };
   },
+  computed: {
+    ...mapState(['collections']),
+  },
   methods: {
-    createCollection() {
-      this.collections.push({
-        title: this.newCollectionTitle,
-        items: [],
-      });
-
-      this.$router.push({
-        name: 'todos',
-        params: { id: this.collections.length - 1 },
-      });
-
+    ...mapActions(['createCollection']),
+    createCollectionForm() {
+      this.createCollection(this.newCollectionTitle);
       this.showNewListForm = false;
       this.newCollectionTitle = '';
     },

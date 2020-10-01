@@ -6,31 +6,28 @@
         <button @click="addTodo">+</button>
       </div>
     </form>
+    <button @click="updateCollection" class="btn">Save</button>
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex';
+
 export default {
-  props: {
-    todo: {
-      type: Object,
-    },
-    collection: {
-      type: Object,
-    },
-  },
-  mounted() {
-    console.log(this.collection);
+  data() {
+    return {
+      todo: {
+        title: '',
+        description: '',
+      },
+    };
   },
   methods: {
+    ...mapMutations(['addTodoItem']),
+    ...mapActions(['updateCollection']),
     addTodo() {
       if (this.todo.title === '') return;
-
-      this.collections[this.collectionId].items.push({
-        title: this.todo.title,
-        description: '',
-      });
-
+      this.addTodoItem({ ...this.todo });
       this.todo.title = '';
     },
   },

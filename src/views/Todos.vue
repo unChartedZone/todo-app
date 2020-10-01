@@ -15,12 +15,12 @@
         </div>
       </div>
     </div>
-    <Sidebar :collections="collections" />
+    <Sidebar />
     <div class="todos__container">
       <h1 class="h1">
         {{ areCollectionsLoaded ? collections[$route.params.id].title : '' }}
       </h1>
-      <TodoForm :todo="todo" :collection="collections[collectionId]" />
+      <TodoForm />
       <div class="todos__list" v-if="getTodoItems.length != 0">
         <div
           v-for="(item, index) in getTodoItems"
@@ -41,8 +41,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { auth, firestore } from '../firebase';
+/* eslint-disable */
+import { mapState, mapActions, mapMutations } from 'vuex';
+import { auth } from '../firebase';
 
 import Sidebar from '../components/Sidebar.vue';
 import TodoForm from '../components/Todos/TodoForm.vue';
@@ -59,13 +60,11 @@ export default {
         title: '',
         description: '',
       },
-      collectionId: '',
-      collections: [],
       title: 'New List',
     };
   },
   computed: {
-    ...mapState(['potato']),
+    ...mapState(['collectionId', 'collections']),
     getTodoItems() {
       return this.areCollectionsLoaded
         ? this.collections[this.$route.params.id].items
@@ -79,32 +78,24 @@ export default {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
       // react to route changes...
-      this.collectionId = to.params.id;
+      // this.collectionId = to.params.id;
+      this.setCollectionId(to.params.id);
       this.todo.title = '';
       this.todo.description = '';
     },
   },
   async mounted() {
     await this.loadCollections();
-    this.collectionId = this.$route.params.id;
+    // this.collectionId = this.$route.params.id;
+    this.setCollectionId(this.$route.params.id);
 
     if (this.collectionId >= this.collections.length) {
       this.$router.push({ name: 'todos', params: { id: '0' } });
     }
-    console.table(this.potato);
   },
   methods: {
-    async loadCollections() {
-      const user = auth.currentUser;
-      const todosDoc = firestore.collection('todos').doc(user.uid);
-      const collections = await todosDoc.collection('lists').get();
-
-      collections.forEach((collection) => {
-        this.collections.push({
-          ...collection.data(),
-        });
-      });
-    },
+    ...mapMutations(['setCollectionId']),
+    ...mapActions(['loadCollections']),
     removeTodo(index) {
       this.collections[this.collectionId].items.splice(index, 1);
     },
