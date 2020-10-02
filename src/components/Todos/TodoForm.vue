@@ -6,7 +6,7 @@
         <button @click="addTodo">+</button>
       </div>
     </form>
-    <button @click="updateCollection" class="btn">Save</button>
+    <button @click="updateCollection" class="btn mt-2">Save</button>
   </div>
 </template>
 

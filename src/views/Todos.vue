@@ -9,6 +9,11 @@
           <img src="@/assets/svg/account.svg" alt="Account Icon" />
         </button>
       </div>
+      <div
+        v-if="showAccountDropdown"
+        @click="showAccountDropdown = false"
+        class="account__bg"
+      />
       <div style="position: relative;">
         <div v-if="showAccountDropdown" class="account__dropdown">
           <button @click="logout" class="btn">Logout</button>
@@ -115,6 +120,16 @@ export default {
     right: 2rem;
   }
 
+  &__bg {
+    position: fixed;
+    background-color: red;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+
   &__dropdown {
     position: fixed;
     background-color: white;
@@ -123,6 +138,7 @@ export default {
     padding: 1rem;
     margin-top: 1rem;
     right: 2rem;
+    z-index: 11;
   }
 }
 .todos {
@@ -172,6 +188,7 @@ export default {
     position: fixed;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 
     & > * {
       margin-bottom: 1rem;
@@ -183,12 +200,14 @@ export default {
     &:active,
     &:link,
     &:visited {
+      z-index: 1;
       color: $color-black;
       font-size: 2rem;
       text-decoration: none;
     }
 
     &:hover {
+      z-index: 1;
       color: $color-1;
     }
   }
@@ -210,7 +229,8 @@ export default {
   }
 
   &__bg {
-    background: transparent;
+    // background: transparent;
+    background-color: red;
     position: fixed;
     height: 100%;
     width: 100%;
@@ -226,7 +246,7 @@ export default {
   background-color: $color-1;
   color: $color-white;
   font-size: 2rem;
-  margin-top: 1rem;
+  // margin-top: 1rem;
   padding: 0.5rem 0.8rem;
 
   &__icon {
