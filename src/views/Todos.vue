@@ -118,6 +118,7 @@ export default {
     position: fixed;
     top: 2rem;
     right: 2rem;
+    z-index: 2;
   }
 
   &__bg {
@@ -138,7 +139,7 @@ export default {
     padding: 1rem;
     margin-top: 1rem;
     right: 2rem;
-    z-index: 11;
+    z-index: 110;
   }
 }
 .todos {
@@ -180,41 +181,9 @@ export default {
   }
 }
 
-.sidebar {
-  &__list {
-    box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1);
-    height: 100vh;
-    padding: 2rem 4rem;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-
-    & > * {
-      margin-bottom: 1rem;
-    }
-  }
-
-  &__link {
-    &,
-    &:active,
-    &:link,
-    &:visited {
-      z-index: 1;
-      color: $color-black;
-      font-size: 2rem;
-      text-decoration: none;
-    }
-
-    &:hover {
-      z-index: 1;
-      color: $color-1;
-    }
-  }
-}
-
 .dropdown {
   position: relative;
+  z-index: 2;
 
   &__content {
     border: 1px solid #eeeeee;
@@ -236,7 +205,7 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 12;
   }
 }
 

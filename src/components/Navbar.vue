@@ -65,49 +65,4 @@ export default {
     }
   }
 }
-
-.dropdown {
-  position: relative;
-
-  &__btn {
-    position: relative;
-    z-index: 10;
-    display: block;
-    @apply h-12;
-    @apply w-12;
-    @apply rounded-full;
-    @apply overflow-hidden;
-    @apply border-2;
-    @apply border-gray-600;
-
-    &:focus {
-      @apply outline-none;
-      @apply border-black;
-    }
-  }
-
-  &__list {
-    @apply absolute;
-    @apply rounded-lg;
-    @apply shadow-xl;
-    @apply bg-white;
-    @apply py-2;
-    @apply mt-2;
-
-    width: 19.2rem;
-  }
-
-  &__item {
-    @apply text-2xl;
-    @apply text-gray-800;
-    @apply block;
-    @apply px-4;
-    @apply py-2;
-
-    &:hover {
-      @apply bg-indigo-500;
-      @apply text-white;
-    }
-  }
-}
 </style>

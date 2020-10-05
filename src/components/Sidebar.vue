@@ -1,5 +1,5 @@
 <template>
-  <div class="todos__sidebar">
+  <div class="sidebar">
     <div class="sidebar__list">
       <router-link
         v-for="(collection, index) in collections"
@@ -14,11 +14,6 @@
         <button class="btn" @click="showNewListForm = true">
           New List +
         </button>
-        <div
-          v-if="showNewListForm"
-          @click="showNewListForm = false"
-          class="dropdown__bg"
-        />
         <div v-if="showNewListForm" class="dropdown__content">
           <h1>List Title</h1>
           <form @submit.prevent="createCollectionForm()">
@@ -34,6 +29,11 @@
             </div>
           </form>
         </div>
+        <div
+          v-if="showNewListForm"
+          @click="showNewListForm = false"
+          class="dropdown__bg"
+        />
       </div>
     </div>
   </div>
@@ -62,3 +62,40 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.sidebar {
+  // position: relative;
+  width: 25rem;
+  height: 100vh;
+  margin-right: 10rem;
+
+  &__list {
+    box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+
+    & > * {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__link {
+    &,
+    &:active,
+    &:link,
+    &:visited {
+      color: $color-black;
+      font-size: 2rem;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $color-1;
+    }
+  }
+}
+</style>
