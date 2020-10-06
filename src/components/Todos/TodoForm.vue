@@ -6,7 +6,9 @@
         <button @click="addTodo">+</button>
       </div>
     </form>
-    <button @click="updateCollection" class="btn mt-2">Save</button>
+    <z-button @click="updateCollection" class="mt-2">
+      Save
+    </z-button>
   </div>
 </template>
 

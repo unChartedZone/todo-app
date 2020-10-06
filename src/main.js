@@ -6,11 +6,13 @@ import { auth } from './firebase';
 
 import ZCheckbox from './components/ZCheckbox.vue';
 import ZTextfield from './components/ZTextfield.vue';
+import ZButton from './components/ZButton.vue';
 
 Vue.config.productionTip = false;
 
 Vue.component('z-checkbox', ZCheckbox);
 Vue.component('z-textfield', ZTextfield);
+Vue.component('z-button', ZButton);
 
 let app = null;
 auth.onAuthStateChanged(() => {
