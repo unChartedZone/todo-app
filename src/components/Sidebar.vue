@@ -11,9 +11,24 @@
         {{ collection.title }}
       </router-link>
       <div class="dropdown">
-        <button class="btn" @click="showNewListForm = true">
+        <z-button @click="showNewListForm = true">
           New List +
-        </button>
+        </z-button>
+        <div>
+          <div v-if="showNewListForm" class="dropdown__content">
+            <p>This is the content</p>
+          </div>
+        </div>
+        <div
+          @click="showNewListForm = false"
+          v-if="showNewListForm"
+          class="dropdown__bg"
+        />
+      </div>
+      <!-- <div class="dropdown">
+        <z-button @click="showNewListForm = true">
+          New List +
+        </z-button>
         <div v-if="showNewListForm" class="dropdown__content">
           <h1>List Title</h1>
           <form @submit.prevent="createCollectionForm()">
@@ -34,7 +49,7 @@
           @click="showNewListForm = false"
           class="dropdown__bg"
         />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -96,6 +111,26 @@ export default {
     &:hover {
       color: $color-1;
     }
+  }
+}
+
+.dropdown {
+  &__content {
+    position: absolute;
+    background-color: white;
+    z-index: 30;
+  }
+
+  &__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: purple;
+    z-index: 10;
   }
 }
 </style>

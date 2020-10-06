@@ -1,27 +1,41 @@
 <template>
   <div class="todos__app">
-    <div class="account__container">
-      <div class="account__button">
-        <button
-          @click="showAccountDropdown = !showAccountDropdown"
-          class="btn__icon"
-        >
-          <img src="@/assets/svg/account.svg" alt="Account Icon" />
-        </button>
-      </div>
-      <div
-        v-if="showAccountDropdown"
-        @click="showAccountDropdown = false"
-        class="account__bg"
-      />
-      <div style="position: relative;">
-        <div v-if="showAccountDropdown" class="account__dropdown">
-          <button @click="logout" class="btn">Logout</button>
-        </div>
-      </div>
-    </div>
     <Sidebar />
     <div class="todos__container">
+      <div>
+        <div style="position: fixed; top: 2rem; right: 1.5rem; z-index: 20;">
+          <z-button @click="showAccountDropdown = !showAccountDropdown" icon>
+            <img src="@/assets/svg/account.svg" alt="Account Icon" />
+          </z-button>
+          <div class="dropdown__content">
+            <z-button @click="logout">Logout</z-button>
+          </div>
+        </div>
+        <div
+          @click="showAccountDropdown = false"
+          v-if="showAccountDropdown"
+          class="dropdown__bg"
+        />
+      </div>
+      <!-- <div>
+        <div class="account__container">
+          <div class="account__button">
+            <z-button @click="showAccountDropdown = !showAccountDropdown" icon>
+              <img src="@/assets/svg/account.svg" alt="Account Icon" />
+            </z-button>
+          </div>
+          <div style="position: relative;">
+            <div v-if="showAccountDropdown" class="account__dropdown">
+              <z-button @click="logout">Logout</z-button>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="showAccountDropdown"
+          @click="showAccountDropdown = false"
+          class="account__bg"
+        />
+      </div> -->
       <h1 class="h1">
         {{ areCollectionsLoaded ? collections[$route.params.id].title : '' }}
       </h1>
@@ -36,7 +50,7 @@
             <z-checkbox class="mr-2" />
             {{ item.title }}
           </div>
-          <div @click="removeTodo(index)" class="btn__icon">
+          <div @click="removeTodo(index)" class="todos__remove btn__icon">
             <img src="@/assets/svg/temp.svg" alt="" />
           </div>
         </div>
@@ -113,35 +127,6 @@ export default {
 </script>
 
 <style lang="scss">
-.account {
-  &__container {
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    z-index: 2;
-  }
-
-  &__bg {
-    position: fixed;
-    background-color: red;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 100;
-  }
-
-  &__dropdown {
-    position: fixed;
-    background-color: white;
-    border: 1px solid #dddddd;
-    border-radius: 7px;
-    padding: 1rem;
-    margin-top: 1rem;
-    right: 2rem;
-    z-index: 110;
-  }
-}
 .todos {
   &__app {
     width: 100%;
@@ -174,65 +159,18 @@ export default {
     align-items: center;
     font-size: 2rem;
     padding: 2rem;
-  }
 
-  &__content {
-    display: flex;
-  }
-}
-
-.dropdown {
-  position: relative;
-  z-index: 2;
-
-  &__content {
-    border: 1px solid #eeeeee;
-    border-radius: 7px;
-    box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    padding: 1rem;
-    top: 110%;
-    min-width: 10rem;
-    position: absolute;
-    z-index: 15;
-  }
-
-  &__bg {
-    // background: transparent;
-    background-color: red;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 12;
-  }
-}
-
-.btn {
-  border: none;
-  border-radius: 7px;
-  background-color: $color-1;
-  color: $color-white;
-  font-size: 2rem;
-  // margin-top: 1rem;
-  padding: 0.5rem 0.8rem;
-
-  &__icon {
-    border: 1px solid black;
-    background-color: transparent;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 100%;
-    height: 3rem;
-    width: 3rem;
-    cursor: pointer;
-
-    img {
-      height: 55%;
+    &:hover .todos__remove {
+      opacity: 1;
     }
+  }
+
+  &__remove {
+    opacity: 0;
+  }
+
+  &__content {
+    display: flex;
   }
 }
 </style>
