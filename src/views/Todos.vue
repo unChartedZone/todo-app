@@ -91,7 +91,7 @@ export default {
     },
   },
   async mounted() {
-    await this.loadCollections();
+    // await this.loadCollections();
     // this.collectionId = this.$route.params.id;
     this.setCollectionId(this.$route.params.id);
 
@@ -107,6 +107,7 @@ export default {
     },
     async logout() {
       await auth.signOut();
+      this.$store.commit('wipeState'); // Wipe loaded collections from memory
       this.$router.push({ name: 'home' });
     },
   },

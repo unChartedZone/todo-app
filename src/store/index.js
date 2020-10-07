@@ -29,6 +29,10 @@ export default new Vuex.Store({
     addCollection(state, payload) {
       state.collections.push({ ...payload });
     },
+    wipeState(state) {
+      state.collections = [];
+      state.collectionId = '';
+    },
   },
   actions: {
     async loadCollections({ state, commit }) {

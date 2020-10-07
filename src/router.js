@@ -1,6 +1,8 @@
+/* eslint-disable */
 import Vue from 'vue';
 import Router from 'vue-router';
 import { auth } from './firebase';
+import store from './store';
 
 // Views
 import Home from './views/Home.vue';
@@ -26,6 +28,10 @@ const router = new Router({
       component: Todos,
       meta: {
         requiresAuth: true,
+      },
+      async beforeEnter(to, from, next) {
+        await store.dispatch('loadCollections');
+        next();
       },
     },
     {
