@@ -14,9 +14,21 @@
         <z-button @click="showNewListForm = true">
           New List +
         </z-button>
-        <div>
-          <div v-if="showNewListForm" class="dropdown__content">
-            <p>This is the content</p>
+        <div class="dropdown__content">
+          <div v-if="showNewListForm" class="dropdown__form">
+            <h1>List Title</h1>
+            <form @submit.prevent="createCollectionForm()">
+              <div class="mt-2" style="display: flex;">
+                <input
+                  v-model="newCollectionTitle"
+                  class="textfield mr-2"
+                  type="text"
+                />
+                <z-button icon>
+                  <img src="@/assets/svg/plus.svg" alt="plus-icon" />
+                </z-button>
+              </div>
+            </form>
           </div>
         </div>
         <div
@@ -26,11 +38,7 @@
         />
       </div>
       <!-- <div class="dropdown">
-        <z-button @click="showNewListForm = true">
-          New List +
-        </z-button>
         <div v-if="showNewListForm" class="dropdown__content">
-          <h1>List Title</h1>
           <form @submit.prevent="createCollectionForm()">
             <div class="mt-2" style="display: flex;">
               <input
@@ -116,8 +124,19 @@ export default {
 
 .dropdown {
   &__content {
-    position: absolute;
+    position: relative;
+  }
+
+  &__form {
+    border-radius: 7px;
+    border: 1px solid #eee;
     background-color: white;
+    box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    min-width: 10rem;
+    padding: 1rem 1.5rem;
+    position: absolute;
+    top: 110%;
+
     z-index: 30;
   }
 
@@ -129,7 +148,7 @@ export default {
     bottom: 0;
     width: 100%;
     height: 100vh;
-    background-color: purple;
+    background: transparent;
     z-index: 10;
   }
 }

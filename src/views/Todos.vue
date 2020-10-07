@@ -2,40 +2,27 @@
   <div class="todos__app">
     <Sidebar />
     <div class="todos__container">
-      <div>
-        <div style="position: fixed; top: 2rem; right: 1.5rem; z-index: 20;">
+      <div class="account">
+        <div class="account__activator">
           <z-button @click="showAccountDropdown = !showAccountDropdown" icon>
             <img src="@/assets/svg/account.svg" alt="Account Icon" />
           </z-button>
-          <div class="dropdown__content">
-            <z-button @click="logout">Logout</z-button>
-          </div>
         </div>
-        <div
-          @click="showAccountDropdown = false"
-          v-if="showAccountDropdown"
-          class="dropdown__bg"
-        />
-      </div>
-      <!-- <div>
-        <div class="account__container">
-          <div class="account__button">
-            <z-button @click="showAccountDropdown = !showAccountDropdown" icon>
-              <img src="@/assets/svg/account.svg" alt="Account Icon" />
-            </z-button>
-          </div>
-          <div style="position: relative;">
-            <div v-if="showAccountDropdown" class="account__dropdown">
-              <z-button @click="logout">Logout</z-button>
+        <div class="account__menu">
+          <div class="accoutn__content">
+            <div class="account__list" v-if="showAccountDropdown">
+              <z-button @click="logout">
+                Logout
+              </z-button>
             </div>
           </div>
         </div>
         <div
-          v-if="showAccountDropdown"
           @click="showAccountDropdown = false"
+          v-if="showAccountDropdown"
           class="account__bg"
         />
-      </div> -->
+      </div>
       <h1 class="h1">
         {{ areCollectionsLoaded ? collections[$route.params.id].title : '' }}
       </h1>
@@ -171,6 +158,46 @@ export default {
 
   &__content {
     display: flex;
+  }
+}
+
+.account {
+  &__activator,
+  &__menu {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+  }
+
+  &__menu {
+    z-index: 30;
+  }
+
+  &__content {
+    position: relative;
+  }
+
+  &__list {
+    background-color: white;
+    border: 1px solid #eee;
+    box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    padding: 1rem 1.5rem;
+    position: absolute;
+    top: 4rem;
+    right: 0;
+  }
+
+  &__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    background: transparent;
+    z-index: 10;
   }
 }
 </style>
