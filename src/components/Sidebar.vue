@@ -37,27 +37,6 @@
           class="dropdown__bg"
         />
       </div>
-      <!-- <div class="dropdown">
-        <div v-if="showNewListForm" class="dropdown__content">
-          <form @submit.prevent="createCollectionForm()">
-            <div class="mt-2" style="display: flex;">
-              <input
-                v-model="newCollectionTitle"
-                class="textfield mr-2"
-                type="text"
-              />
-              <button class="btn__icon">
-                <img src="@/assets/svg/plus.svg" alt="plus-icon" />
-              </button>
-            </div>
-          </form>
-        </div>
-        <div
-          v-if="showNewListForm"
-          @click="showNewListForm = false"
-          class="dropdown__bg"
-        />
-      </div> -->
     </div>
   </div>
 </template>
@@ -78,6 +57,8 @@ export default {
   methods: {
     ...mapActions(['createCollection']),
     createCollectionForm() {
+      if (this.newCollectionTitle === '') return;
+
       this.createCollection(this.newCollectionTitle);
       this.showNewListForm = false;
       this.newCollectionTitle = '';
