@@ -5,28 +5,40 @@
       <h1 class="h1 mb-4">Login</h1>
       <ValidationObserver v-slot="{ invalid }">
         <form @submit.prevent>
-          <ValidationProvider
-            name="Email"
+          <!-- <ValidationProvider
+            name="potato"
             rules="required|email"
             v-slot="{ errors }"
           >
             <label class="text-base">Email</label>
-            <input v-model="email" class="textfield mb-4" type="email" />
+            <input v-model="email" class="textfield mb-4" type="text" />
             <span>{{ errors[0] }}</span>
-          </ValidationProvider>
-
-          <label class="text-base">Password</label>
-          <input v-model="password" class="textfield mb-4" type="password" />
+          </ValidationProvider> -->
+          <z-textfield
+            v-model="email"
+            name="Email"
+            label="Email"
+            type="email"
+            rules="required|email"
+          />
+          <z-textfield
+            v-model="password"
+            name="Password"
+            label="Password"
+            type="password"
+            rules="required"
+            class="mt-4"
+          />
+          <!-- <label class="text-base">Password</label>
+          <input v-model="password" class="textfield mb-4" type="password" /> -->
           <button
             @click="loginUser"
-            class="btn"
+            class="btn mt-4"
             type="submit"
             :disabled="invalid"
           >
             Login
           </button>
-          <!-- <button @click="getCurrentUser" class="btn">Get Current User</button>
-        <button @click="signoutUser" class="btn">Sign Out User</button> -->
         </form>
       </ValidationObserver>
     </div>
@@ -60,17 +72,6 @@ export default {
       } catch (e) {
         console.log('Error Logging In: ', e);
       }
-    },
-    async signoutUser() {
-      try {
-        await auth.signOut();
-        console.log('Signed Out!');
-      } catch (e) {
-        console.log('Error Signing Out User: :', e);
-      }
-    },
-    getCurrentUser() {
-      console.log(auth.currentUser);
     },
   },
 };

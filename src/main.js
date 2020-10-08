@@ -18,8 +18,14 @@ import ZButton from './components/ZButton.vue';
 
 Vue.config.productionTip = false;
 
-extend('email', email);
-extend('required', required);
+extend('email', {
+  ...email,
+  message: 'Email must be valid',
+});
+extend('required', {
+  ...required,
+  message: 'Required',
+});
 extend('alpha', alpha);
 
 localize('en', en);
