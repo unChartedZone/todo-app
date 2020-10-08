@@ -1,10 +1,11 @@
 <template>
   <div class="my-2">
     <form @submit.prevent>
-      <div class="textfield">
+      <!-- <div class="textfield">
         <input v-model="todo.title" placeholder="New Todo" type="text" />
         <button @click="addTodo">+</button>
-      </div>
+      </div> -->
+      <z-textfield v-model="todo.title" placeholder="New Todo" />
     </form>
     <z-button @click="updateCollection" class="mt-2">
       Save
@@ -35,31 +36,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.textfield {
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  width: 20rem;
-
-  // Highlight inner textfield
-  &:focus-within {
-    border-color: $color-1;
-  }
-
-  input {
-    border: none;
-    outline: none;
-  }
-
-  button {
-    background: transparent;
-    border: none;
-    font-size: 3rem;
-    line-height: 0.3;
-  }
-}
-</style>

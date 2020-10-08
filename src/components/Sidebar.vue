@@ -19,11 +19,7 @@
             <h1>List Title</h1>
             <form @submit.prevent="createCollectionForm()">
               <div class="mt-2" style="display: flex;">
-                <input
-                  v-model="newCollectionTitle"
-                  class="textfield mr-2"
-                  type="text"
-                />
+                <z-textfield v-model="newCollectionTitle" class="mr-2" />
                 <z-button icon>
                   <img src="@/assets/svg/plus.svg" alt="plus-icon" />
                 </z-button>
