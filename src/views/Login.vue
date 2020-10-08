@@ -3,22 +3,38 @@
     <Navbar />
     <div class="login__container mx-auto">
       <h1 class="h1 mb-4">Login</h1>
-      <form @submit.prevent>
-        <label class="text-base">Email</label>
-        <input v-model="email" class="textfield mb-4" type="text" />
-        <label class="text-base">Password</label>
-        <input v-model="password" class="textfield mb-4" type="password" />
-        <button @click="loginUser" class="btn" type="submit">
-          Login
-        </button>
-        <!-- <button @click="getCurrentUser" class="btn">Get Current User</button>
+      <ValidationObserver v-slot="{ invalid }">
+        <form @submit.prevent>
+          <ValidationProvider
+            name="Email"
+            rules="required|email"
+            v-slot="{ errors }"
+          >
+            <label class="text-base">Email</label>
+            <input v-model="email" class="textfield mb-4" type="email" />
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <label class="text-base">Password</label>
+          <input v-model="password" class="textfield mb-4" type="password" />
+          <button
+            @click="loginUser"
+            class="btn"
+            type="submit"
+            :disabled="invalid"
+          >
+            Login
+          </button>
+          <!-- <button @click="getCurrentUser" class="btn">Get Current User</button>
         <button @click="signoutUser" class="btn">Sign Out User</button> -->
-      </form>
+        </form>
+      </ValidationObserver>
     </div>
   </section>
 </template>
 
 <script>
+/* eslint-disable */
 import { auth } from '../firebase';
 import Navbar from '../components/Navbar.vue';
 
