@@ -18,15 +18,25 @@ import ZButton from './components/ZButton.vue';
 
 Vue.config.productionTip = false;
 
+extend('alpha', alpha);
+
 extend('email', {
   ...email,
   message: 'Email must be valid',
 });
+
 extend('required', {
   ...required,
   message: 'Required',
 });
-extend('alpha', alpha);
+
+extend('password', {
+  params: ['target'],
+  validate(value, { target }) {
+    return value === target;
+  },
+  message: 'Password confirmation does not match',
+});
 
 localize('en', en);
 

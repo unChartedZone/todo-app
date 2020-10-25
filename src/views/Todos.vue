@@ -77,7 +77,7 @@ export default {
         : [];
     },
     areCollectionsLoaded() {
-      return this.collectionId && this.collections.length > 0;
+      return this.collections.length > 0;
     },
   },
   watch: {

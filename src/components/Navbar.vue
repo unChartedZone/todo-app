@@ -1,8 +1,9 @@
 <template>
   <nav class="nav">
     <div class="nav__main container flex justify-between items-center">
-      <div class="nav__links space-x-6">
-        <router-link class="nav__link" to="/">Todos</router-link>
+      <router-link class="nav__link" to="/" exact>Todos</router-link>
+      <div class="nav__links">
+        <router-link class="nav__link mr-4" to="/signup">Signup</router-link>
         <router-link class="nav__link" to="/login">Login</router-link>
       </div>
     </div>
@@ -42,10 +43,19 @@ export default {
   top: 0;
   left: 0;
   z-index: 50;
-  padding: 2rem;
+  padding: 2rem 4rem;
 
   &__main {
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__brand {
+    font-size: 1.85rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
   }
 
   &__link {
@@ -57,7 +67,6 @@ export default {
       font-weight: bold;
       color: white;
       text-decoration: none;
-      margin: 0 1.5rem 0 0;
     }
 
     &.router-link-exact-active {
