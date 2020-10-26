@@ -3,7 +3,12 @@
     <ValidationProvider :name="name" :rules="rules" v-slot="{ errors }">
       <label class="textfield__label">{{ label }}</label>
       <div class="textfield__input">
-        <input v-model="currentValue" :type="type" :placeholder="placeholder" />
+        <input
+          :value="value"
+          @input="updateValue($event.target.value)"
+          :type="type"
+          :placeholder="placeholder"
+        />
       </div>
       <p class="textfield__errors">{{ errors[0] }}</p>
     </ValidationProvider>
@@ -43,9 +48,9 @@ export default {
       currentValue: '',
     };
   },
-  watch: {
-    currentValue(val) {
-      this.$emit('input', val);
+  methods: {
+    updateValue(value) {
+      this.$emit('input', value);
     },
   },
 };
