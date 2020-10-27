@@ -66,6 +66,7 @@ export default {
 <style lang="scss">
 .sidebar {
   // position: relative;
+  background-color: $color-2;
   width: 25rem;
   height: 100vh;
   margin-right: 10rem;
@@ -88,13 +89,13 @@ export default {
     &:active,
     &:link,
     &:visited {
-      color: $color-black;
+      color: $color-white;
       font-size: 2rem;
       text-decoration: none;
     }
 
     &:hover {
-      color: $color-1;
+      color: $color-3;
     }
   }
 }
