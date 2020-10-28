@@ -118,9 +118,9 @@ export default {
 .todos {
   &__app {
     width: 100%;
-    display: grid;
+    /* display: grid; */
     // grid-template-columns: 20% 80%;
-    grid-template-columns: auto 1fr;
+    /* grid-template-columns: auto 1fr; */
   }
 
   &__sidebar {
@@ -131,6 +131,7 @@ export default {
 
   &__container {
     padding: 2rem 0;
+    margin-left: 30rem;
   }
 
   &__list {

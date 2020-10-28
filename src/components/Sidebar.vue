@@ -70,6 +70,7 @@ export default {
   width: 25rem;
   height: 100vh;
   margin-right: 10rem;
+  position: fixed;
 
   &__list {
     box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1);

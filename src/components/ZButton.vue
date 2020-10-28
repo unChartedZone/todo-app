@@ -25,7 +25,7 @@ export default {
   padding: 0.5rem 0.8rem;
 
   &__icon {
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 7px 30px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid black;
     background-color: transparent;
     border-radius: 50%;
